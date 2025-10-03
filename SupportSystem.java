@@ -36,7 +36,7 @@ public class SupportSystem
     public void start()
     {
         boolean finished = false;
-
+        
         printWelcome();
 
         while(!finished) {
@@ -53,9 +53,24 @@ public class SupportSystem
         }
         
         printGoodbye();
-        System.out.println(counter.getWordCount() + " word(s) were prompted.");
+        System.out.println(wordCount(counter.hashToArray()) + " word(s) were prompted.");
     }
+    
+    private int wordCount(String[] wordSet)
+    {
+        
+        int count = counter.getWordCount();
+        for (int i = 0; i < wordSet.length; i++)
+        {
+            if (responder.mapContains(wordSet[i]))
+            {
+                count = count - 1;
+            }
 
+        }
+        
+        return count;
+    }
     /**
      * Print a welcome message to the screen.
      */

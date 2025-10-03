@@ -138,7 +138,16 @@ public class Responder
                         do about it, I'm afraid.
                         """);
     }
-
+    
+    public boolean mapContains(String input) 
+    {
+        boolean isContaining = false;
+        for (int i = 0; i < responseMap.size(); i++) 
+        {
+            isContaining = (responseMap.containsKey(input));
+        }
+        return isContaining;
+    }
     /**
      * Build up a list of default responses from which we can pick one
      * if we don't know what else to say.

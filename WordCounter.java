@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Keep a record of how many times each word was entered by users.
@@ -30,6 +31,13 @@ public class WordCounter
             int counter = counts.getOrDefault(word, 0);
             counts.put(word, counter + 1);
         }
+    }
+    
+    public String[] hashToArray()
+    {
+        HashMap<String, Integer> hash = counts;
+        String[] array = hash.keySet().toArray(new String[0]);
+        return array;
     }
     
     public int getWordCount() 
