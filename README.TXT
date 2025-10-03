@@ -27,3 +27,7 @@ Then start describing your problem by typing in the terminal window.
 
 The purpose of this project is to demonstrate and study library classes, such 
 as ArrayList, HashMap, HashSet, and Random.
+
+43: If key not found it will default to the second parameter value.
+
+44:

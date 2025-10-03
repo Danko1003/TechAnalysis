@@ -31,4 +31,10 @@ public class WordCounter
             counts.put(word, counter + 1);
         }
     }
+    
+    public int getWordCount() 
+    {
+        int wordCount = counts.size();
+        return wordCount;
+    }
 }

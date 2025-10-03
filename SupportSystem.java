@@ -51,7 +51,9 @@ public class SupportSystem
                 System.out.println(response);
             }
         }
+        
         printGoodbye();
+        System.out.println(counter.getWordCount() + " word(s) were prompted.");
     }
 
     /**
