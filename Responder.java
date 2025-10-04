@@ -1,33 +1,44 @@
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 /**
- * The responder class represents a response generator object.
+ * The Responder class represents a response generator object.
  * It is used to generate an automatic response, based on specified input.
- * Input is presented to the responder as a set of words, and based on those
- * words the responder will generate a String that represents the response.
+ * <p>
+ * Input is presented to the responder as a set of words. If one of those
+ * words matches a key in the response map, the associated response is 
+ * returned. If no words are recognized, a default response is chosen at 
+ * random from a list of fallback responses.
+ * </p>
  *
- * Internally, the reponder uses a HashMap to associate words with response
- * strings and a list of default responses. If any of the input words is found
- * in the HashMap, the corresponding response is returned. If none of the input
- * words is recognized, one of the default responses is randomly chosen.
+ * Internally, the responder uses:
+ * <ul>
+ *   <li>A {@code HashMap<String, String>} to associate key words with responses</li>
+ *   <li>An {@code ArrayList<String>} of default responses</li>
+ *   <li>A {@code Random} generator to pick a default response when needed</li>
+ * </ul>
  * 
- * @author  Michael Kölling and David J. Barnes
+ * @author  
  * @version 7.3
  */
 public class Responder
 {
-    // Used to map key words to responses.
+    /** Used to map key words to their responses. */
     private HashMap<String, String> responseMap;
-    // Default responses to use if we don't recognise a word.
+    /** Default responses to use if no keywords are recognized. */
     private ArrayList<String> defaultResponses;
+    /** Random generator to pick a default response. */
     private Random randomGenerator;
 
     /**
-     * Construct a Responder
+     * Constructs a Responder.
+     * <p>
+     * Initializes the response map with known keywords and their responses,
+     * and builds the list of default responses. Also sets up the random 
+     * generator for choosing defaults.
+     * </p>
      */
     public Responder()
     {
@@ -39,10 +50,14 @@ public class Responder
     }
 
     /**
-     * Generate a response from a given set of input words.
-     * 
+     * Generates a response based on a given set of input words.
+     * <p>
+     * If any of the words are found in the response map, the corresponding 
+     * response is returned. Otherwise, a random default response is chosen.
+     * </p>
+     *
      * @param words  A set of words entered by the user
-     * @return       A string that should be displayed as the response
+     * @return       A response string to be displayed
      */
     public String generateResponse(HashSet<String> words)
     {
@@ -52,16 +67,16 @@ public class Responder
                 return response;
             }
         }
-        
-        // If we get here, none of the words from the input line was recognized.
-        // In this case we pick one of our default responses (what we say when
-        // we cannot think of anything else to say...)
+        // No recognized words → fall back to default
         return pickDefaultResponse();
     }
 
     /**
-     * Enter all the known keywords and their associated responses
-     * into our response map.
+     * Fills the response map with known keywords and their associated responses.
+     * <p>
+     * Each keyword maps to a prepared response string that is returned if the 
+     * keyword is detected in user input.
+     * </p>
      */
     private void fillResponseMap()
     {
@@ -73,7 +88,7 @@ public class Responder
         responseMap.put("crashes", 
                         """
                         Well, it never crashes on our system. It must have something
-                        "to do with your system. Tell me more about your configuration.
+                        to do with your system. Tell me more about your configuration.
                         """);
         responseMap.put("slow", 
                         """
@@ -95,7 +110,7 @@ public class Responder
         responseMap.put("buggy", 
                         """
                         Well, you know, all software has some bugs. But our software engineers
-                        "are working very hard to fix them. Can you describe the problem a bit
+                        are working very hard to fix them. Can you describe the problem a bit
                         further?
                         """);
         responseMap.put("windows", 
@@ -116,7 +131,7 @@ public class Responder
         responseMap.put("installation", 
                         """
                         The installation is really quite straight forward. We have tons of
-                        "wizards that do all the work for you. Have you read the installation
+                        wizards that do all the work for you. Have you read the installation
                         instructions?
                         """);
         responseMap.put("memory", 
@@ -138,19 +153,22 @@ public class Responder
                         do about it, I'm afraid.
                         """);
     }
-    
+
+    /**
+     * Checks whether the response map contains a given keyword.
+     *
+     * @param input the word to check
+     * @return      {@code true} if the map contains the keyword,
+     *              {@code false} otherwise
+     */
     public boolean mapContains(String input) 
     {
-        boolean isContaining = false;
-        for (int i = 0; i < responseMap.size(); i++) 
-        {
-            isContaining = (responseMap.containsKey(input));
-        }
-        return isContaining;
+        return responseMap.containsKey(input);
     }
+
     /**
-     * Build up a list of default responses from which we can pick one
-     * if we don't know what else to say.
+     * Builds a list of default responses that can be returned if no keyword 
+     * matches the input. These responses are used as fallback options.
      */
     private void fillDefaultResponses()
     {
@@ -172,13 +190,12 @@ public class Responder
     }
 
     /**
-     * Randomly select and return one of the default responses.
-     * @return     A random default response
+     * Randomly selects and returns one of the default responses.
+     *
+     * @return A random default response string
      */
     private String pickDefaultResponse()
     {
-        // Pick a random number for the index in the default response list.
-        // The number will be between 0 (inclusive) and the size of the list (exclusive).
         int index = randomGenerator.nextInt(defaultResponses.size());
         return defaultResponses.get(index);
     }

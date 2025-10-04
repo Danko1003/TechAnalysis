@@ -6,7 +6,11 @@ import java.util.Scanner;
  * The text typed by a user is then chopped into words, and a set of words 
  * is provided.
  * 
- * @author  Michael Kölling and David J. Barnes
+ * This class is intended for simple text input in console-based applications.
+ * Each line of text entered by the user will be split into separate words,
+ * stored in a set to avoid duplicates, and returned for processing.
+ * 
+ * @author  
  * @version 7.3
  */
 public class InputReader
@@ -14,7 +18,8 @@ public class InputReader
     private Scanner reader;
 
     /**
-     * Create a new InputReader that reads text from the text terminal.
+     * Constructs a new InputReader that reads text from the standard 
+     * input stream (the text terminal).
      */
     public InputReader()
     {
@@ -22,11 +27,17 @@ public class InputReader
     }
 
     /**
-     * Read a line of text from standard input (the text terminal),
-     * and return it as a set of words.
+     * Reads one line of text entered by the user, splits the text into 
+     * individual words, and returns the words as a set. 
+     * <p>
+     * Words are defined as sequences of non-whitespace characters 
+     * separated by spaces. The text is automatically converted to 
+     * lowercase and trimmed of leading and trailing spaces.
+     * <p>
+     * Duplicate words are not included in the set.
      *
-     * @return  A set of Strings, where each String is one of the 
-     *          words typed by the user
+     * @return  A HashSet containing all unique words typed by the user 
+     *          in the current input line.
      */
     public HashSet<String> getInput() 
     {

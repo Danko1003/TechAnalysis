@@ -33,3 +33,9 @@ as ArrayList, HashMap, HashSet, and Random.
 44:x
 
 45:x
+
+46: I find that only og methods have the comments and explication, yet it does show all the methods and their return types. I honestly dont see any errors at first glance. For me it does the required minimum.
+
+47:/** */ adds comments to the documentation.
+
+48:x
